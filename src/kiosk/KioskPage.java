@@ -29,14 +29,14 @@ public enum KioskPage {
             io.displayBeverageMenu();
         }
         public KioskPage runProcess(String input) {
-            System.out.println("주문하실 메뉴를 선택해 주세요 : ");
             switch (input) {
                 case "back" : return KioskPage.MealMethodSelectPage;
                 case "cancel" : return KioskPage.StartPage;
                 case ">", "single" : return KioskPage.SingleMenuPage;
                 case "side" : return KioskPage.SideMenuPage;
                 case "0","1","2","3","4" :
-                    io.yourSelect(MenuManagement.findMenu(Integer.valueOf(input), menuManagement.getBeverNumber()));
+                    menuManagement.menuNumbering(); // 각 메뉴 별로 번호 매기기
+                    io.yourSelect(menuManagement.findMenu(Integer.valueOf(input), menuManagement.getBeverNumber()));
                     return KioskPage.CheckOrderPage;
                 default: return this;
             }
@@ -54,6 +54,8 @@ public enum KioskPage {
                 case "side", ">" : return KioskPage.SideMenuPage;
                 case "bever", "<" : return KioskPage.BeverageMenuPage;
                 case "0","1","2","3","4" :
+                    menuManagement.menuNumbering(); // 각 메뉴 별로 번호 매기기
+                    io.yourSelect(menuManagement.findMenu(Integer.valueOf(input), menuManagement.getSingleNumber()));
                     return KioskPage.CheckOrderPage;
                 default: return this;
             }
@@ -70,6 +72,8 @@ public enum KioskPage {
                 case "single", "<" : return KioskPage.SingleMenuPage;
                 case "bever" : return KioskPage.BeverageMenuPage;
                 case "0","1","2","3","4" :
+                    menuManagement.menuNumbering(); // 각 메뉴 별로 번호 매기기
+                    io.yourSelect(menuManagement.findMenu(Integer.valueOf(input), menuManagement.getSideNumber()));
                     return KioskPage.CheckOrderPage;
                 default: return this;
             }
@@ -84,6 +88,7 @@ public enum KioskPage {
                 case "back" : return KioskPage.SingleMenuPage;
                 case "cancel" : return KioskPage.StartPage;
                 case "order" : return KioskPage.PaymentPage;
+                case "keep" :
                 default: return this;
             }
         }
@@ -145,4 +150,5 @@ public enum KioskPage {
 
     IO io = new IO(); // 출력 클래스
     MenuManagement menuManagement = new MenuManagement();
+
 }

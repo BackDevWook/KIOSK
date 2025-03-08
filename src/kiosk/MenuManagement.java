@@ -42,7 +42,7 @@ public class MenuManagement {
     }
 
     // 주문한 번호와 일치한 메뉴 찾기
-    public static String findMenu(Integer input, Map<String, Integer> menuNumbers) {
+    public String findMenu(Integer input, Map<String, Integer> menuNumbers) {
         for (Map.Entry<String, Integer> entry : menuNumbers.entrySet()) {
             if(entry.getValue().equals(input)) {
                 return entry.getKey();
