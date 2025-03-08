@@ -35,6 +35,9 @@ public enum KioskPage {
                 case "cancel" : return KioskPage.StartPage;
                 case ">", "single" : return KioskPage.SingleMenuPage;
                 case "side" : return KioskPage.SideMenuPage;
+                case "0","1","2","3","4" :
+                    io.yourSelect(MenuManagement.findMenu(Integer.valueOf(input), menuManagement.getBeverNumber()));
+                    return KioskPage.CheckOrderPage;
                 default: return this;
             }
         }
@@ -44,12 +47,14 @@ public enum KioskPage {
             io.displaySingleMenu();
         }
         public KioskPage runProcess(String input) {
-            System.out.println("주문하실 메뉴를 선택해 주세요 : ");
+            System.out.println();
             switch (input) {
                 case "back" : return KioskPage.MealMethodSelectPage;
                 case "cancel" : return KioskPage.StartPage;
                 case "side", ">" : return KioskPage.SideMenuPage;
                 case "bever", "<" : return KioskPage.BeverageMenuPage;
+                case "0","1","2","3","4" :
+                    return KioskPage.CheckOrderPage;
                 default: return this;
             }
         }
@@ -64,6 +69,8 @@ public enum KioskPage {
                 case "cancel" : return KioskPage.StartPage;
                 case "single", "<" : return KioskPage.SingleMenuPage;
                 case "bever" : return KioskPage.BeverageMenuPage;
+                case "0","1","2","3","4" :
+                    return KioskPage.CheckOrderPage;
                 default: return this;
             }
         }
