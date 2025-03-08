@@ -7,9 +7,13 @@ public class IO {
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println(" \n\n                     [시작하기]  \n\n");
         System.out.println("────────────────────────────────────────────────────────");
-        System.out.println("\"시작하기\"를 입력해 주세요.");
+        System.out.println("\"start\"를 입력해 주세요.");
     }
 
+    // 키오스크 기능 설명 문구
+    public void displayKioskExplanation() {
+
+    }
     // 키오스크 (매장식사, 포장하기) 선택 문구
     public void displaySelectHow() {
         System.out.println("────────────────────────────────────────────────────────");
@@ -71,7 +75,18 @@ public class IO {
 
     }
 
-    //
+    // 결제 화면
+    public void displayPayment() {
+
+    }
+    // 영수증 출력 유무 화면
+    public void displaySelectReceipt() {
+
+    }
+    // 영수증 화면
+    public void displayReceipt() {
+
+    }
 
 
 
