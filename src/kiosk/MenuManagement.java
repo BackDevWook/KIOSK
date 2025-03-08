@@ -17,13 +17,13 @@ public class MenuManagement {
             beverNumber.put(beverage.name(), beverage.ordinal());
         }
 
-        // 단품 메뉴 번호 매기기
-        for(SingleMenu single : SingleMenu.values()) {
+        // 사이드 메뉴 번호 매기기
+        for(SideMenu single : SideMenu.values()) {
             sideNumber.put(single.name(), single.ordinal());
         }
 
-        // 사이드 메뉴 번호 매기기
-        for(SideMenu side : SideMenu.values()) {
+        // 단품 메뉴 번호 매기기
+        for(SingleMenu side : SingleMenu.values()) {
             singleNumber.put(side.name(), side.ordinal());
         }
     }
