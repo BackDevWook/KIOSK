@@ -172,7 +172,9 @@ public enum KioskPage {
         }
         public KioskPage runProcess(String input) {
             switch (input) {
-                case "check" : return KioskPage.StartPage;
+                case "check" :
+                    System.out.println("감사합니다.");
+                    return KioskPage.StartPage;
                 default: return this;
             }
         }

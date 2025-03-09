@@ -7,7 +7,9 @@ public class IO {
     // 키오스크 시작 문구
     public void displayKioskStart() {
         System.out.println("────────────────────────────────────────────────────────");
-        System.out.println(" \n\n                     [시작하기]  \n\n");
+        System.out.println("미슐랭 ★★★              ∇ 심 연 ∇            |괴식 다이닝|");
+        System.out.println(" \n                     [시작하기]  \n");
+        System.out.println("롯데 시그니엘 23년 총주방장 경력 \"김하늘\" 쉐프의 소문난 레스토랑!");
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("\"start\"를 입력해 주세요.");
         System.out.println("\"cancel\" 입력시 초기 화면으로 돌아갈 수 있습니다.");
@@ -114,12 +116,14 @@ public class IO {
     // 영수증 화면
     public void displayReceipt(int totalPrice, Map<String, Integer> orderList) {
         System.out.println("────────────────────────────────────────────────────────");
+        System.out.println("                        [영수증]                         ");
         for(String menu : orderList.keySet()) {
             System.out.println("[" + menu + "] " + orderList.get(menu) + "ea");
         }
         System.out.println();
         System.out.println("주문 금액 : " + totalPrice + "원");
         System.out.println("────────────────────────────────────────────────────────");
+        System.out.println("\"check\"를 입력해 주세요.");
     }
 
 
