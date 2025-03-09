@@ -29,14 +29,15 @@ public enum KioskPage {
             io.displayBeverageMenu();
         }
         public KioskPage runProcess(String input) {
-            switch (input) {
+            switch (input) { // 페이지 전환 , 주문 및 담기
                 case "back" : return KioskPage.MealMethodSelectPage;
                 case "cancel" : return KioskPage.StartPage;
                 case ">", "single" : return KioskPage.SingleMenuPage;
                 case "side" : return KioskPage.SideMenuPage;
                 case "0","1","2","3","4" :
                     menuManagement.menuNumbering(); // 각 메뉴 별로 번호 매기기
-                    io.yourSelect(menuManagement.findMenu(Integer.valueOf(input), menuManagement.getBeverNumber()));
+                    io.yourSelect(menuManagement.findMenu(Integer.valueOf(input), menuManagement.getBeverNumber()), menuManagement.getBeverPrice(Integer.valueOf(input))); // 선택한 주문의 이름과 가격 출력
+                    price = menuManagement.getBeverPrice(Integer.valueOf(input));
                     return KioskPage.CheckOrderPage;
                 default: return this;
             }
@@ -48,14 +49,16 @@ public enum KioskPage {
         }
         public KioskPage runProcess(String input) {
             System.out.println();
-            switch (input) {
+            switch (input) { // 페이지 전환 , 주문 및 담기
                 case "back" : return KioskPage.MealMethodSelectPage;
                 case "cancel" : return KioskPage.StartPage;
                 case "side", ">" : return KioskPage.SideMenuPage;
                 case "bever", "<" : return KioskPage.BeverageMenuPage;
                 case "0","1","2","3","4" :
                     menuManagement.menuNumbering(); // 각 메뉴 별로 번호 매기기
-                    io.yourSelect(menuManagement.findMenu(Integer.valueOf(input), menuManagement.getSingleNumber()));
+                    io.yourSelect(menuManagement.findMenu(Integer.valueOf(input), menuManagement.getSingleNumber()), menuManagement.getSinglePrice(Integer.valueOf(input))); // 선택한 주문의 이름과 가격 출력
+                    price = menuManagement.getSinglePrice(Integer.valueOf(input)); // 인스턴스 변수에 선택한 메뉴의 금액 저장
+                    orderMenuName = menuManagement.findMenu(Integer.valueOf(input), menuManagement.getSingleNumber()); // 인스턴스 변수에 선택한 메뉴의 이름 저장
                     return KioskPage.CheckOrderPage;
                 default: return this;
             }
@@ -66,18 +69,20 @@ public enum KioskPage {
             io.displaySideMenu();
         }
         public KioskPage runProcess(String input) {
-            switch (input) {
+            switch (input) { // 페이지 전환 , 주문 및 담기
                 case "back" : return KioskPage.MealMethodSelectPage;
                 case "cancel" : return KioskPage.StartPage;
                 case "single", "<" : return KioskPage.SingleMenuPage;
                 case "bever" : return KioskPage.BeverageMenuPage;
                 case "0","1","2","3","4" :
                     menuManagement.menuNumbering(); // 각 메뉴 별로 번호 매기기
-                    io.yourSelect(menuManagement.findMenu(Integer.valueOf(input), menuManagement.getSideNumber()));
+                    io.yourSelect(menuManagement.findMenu(Integer.valueOf(input), menuManagement.getSideNumber()), menuManagement.getSidePrice(Integer.valueOf(input))); // 선택한 주문의 이름과 가격 출력
+                    price = menuManagement.getSidePrice(Integer.valueOf(input));
                     return KioskPage.CheckOrderPage;
                 default: return this;
             }
         }
+
     },
     CheckOrderPage { // 주문 확정 or 장바구니 담기 선택 화면
         public void display() {
@@ -87,7 +92,7 @@ public enum KioskPage {
             switch (input) {
                 case "back" : return KioskPage.SingleMenuPage;
                 case "cancel" : return KioskPage.StartPage;
-                case "order" : return KioskPage.PaymentPage;
+                case "order" : return KioskPage.PaymentPage_SINGLE;
                 case "keep" :
                 default: return this;
             }
@@ -105,7 +110,7 @@ public enum KioskPage {
             }
         }
     },
-    PaymentPage { // 결제 화면
+    PaymentPage_SINGLE { // 단품 결제 화면
         public void display() {
             io.displayPayment();
         }
@@ -113,8 +118,20 @@ public enum KioskPage {
             switch (input) {
                 case "back" : return KioskPage.SingleMenuPage;
                 case "cancel" : return KioskPage.StartPage;
+                case "bill":
+                    io.displayBillPayment();
+                    return KioskPage.StartPage;
+                case "card" : return KioskPage.ReceiptSelectPage;
                 default: return this;
             }
+        }
+    },
+    PaymentPage_BAKSET { // 장바구니 결제 화면
+        public void display() {
+
+        }
+        public KioskPage runProcess(String input) {
+            return null;
         }
     },
     ReceiptSelectPage { // 영수증 출력 유무 화면
@@ -124,14 +141,16 @@ public enum KioskPage {
         public KioskPage runProcess(String input) {
             switch (input) {
                 case "yes" : return KioskPage.ReceiptPage;
-                case "no" : return KioskPage.StartPage;
+                case "no" :
+                    System.out.println("결제가 완료되었습니다. 감사합니다.");
+                    return KioskPage.StartPage;
                 default: return this;
             }
         }
     },
     ReceiptPage { // 영수증 화면
         public void display() {
-            io.displayReceipt();
+
         }
         public KioskPage runProcess(String input) {
             switch (input) {
@@ -141,14 +160,18 @@ public enum KioskPage {
         }
     };
 
-    public abstract void display();
-    public abstract KioskPage runProcess(String input);
+
+    private static int price; // 즉시 주문 시 사용할 금액 변수
+    private final static int quantity = 1; // 즉시 주문 시 사용할 주문 수량 = 1
+    private static String orderMenuName; // 즉시 주문 시 사용할 메뉴명
 
 
+    public abstract void display(); // 출력 메서드
+    public abstract KioskPage runProcess(String input); // 페이지 전환 메서드
 
 
 
     IO io = new IO(); // 출력 클래스
-    MenuManagement menuManagement = new MenuManagement();
+    MenuManagement menuManagement = new MenuManagement(); // 메뉴 관리 메서드
 
 }

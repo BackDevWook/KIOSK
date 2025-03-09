@@ -1,5 +1,7 @@
 package kiosk;
 
+import java.util.Map;
+
 public class IO {
 
     // 키오스크 시작 문구
@@ -70,9 +72,10 @@ public class IO {
         System.out.println("────────────────────────────────────────────────────────");
     }
     // 선택한 메뉴가 무엇인지 보여주기
-    public void yourSelect(String menuName) {
+    public void yourSelect(String menuName, int price) {
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("선택 하신 메뉴 : " + menuName);
+        System.out.println("금액 : " + price + "원");
         System.out.println("────────────────────────────────────────────────────────");
     }
     // 장바구니 목록
@@ -85,15 +88,38 @@ public class IO {
 
     // 결제 화면
     public void displayPayment() {
-
+        System.out.println("────────────────────────────────────────────────────────");
+        System.out.println();
+        System.out.println();
+        System.out.println("               [카드결제]         [현금결제]               ");
+        System.out.println();
+        System.out.println();
+        System.out.println("────────────────────────────────────────────────────────");
+        System.out.println("결제 방식을 선택해 주세요. [카드 : card] , [현금 : bill] 입력");
     }
+    // 현금 결제 선택 시
+    public void displayBillPayment() {
+        System.out.println("카운터로 가서 다시 주문하세요 ^-^");
+    }
+
     // 영수증 출력 유무 화면
     public void displaySelectReceipt() {
-
+        System.out.println("────────────────────────────────────────────────────────");
+        System.out.println();
+        System.out.println("                영수증을 출력 하시겠습니까?");
+        System.out.println();
+        System.out.println("────────────────────────────────────────────────────────");
+        System.out.println("출력을 원하신다면 \"yes\" 아니라면 \"no\"를 입력해 주세요.");
     }
     // 영수증 화면
-    public void displayReceipt() {
-
+    public void displayReceipt(int totalPrice, Map<String, Integer> orderList) {
+        System.out.println("────────────────────────────────────────────────────────");
+        for(String menu : orderList.keySet()) {
+            System.out.println("[" + menu + "] " + orderList.get(menu));
+        }
+        System.out.println();
+        System.out.println("주문 금액 : " + totalPrice + "원");
+        System.out.println("────────────────────────────────────────────────────────");
     }
 
 

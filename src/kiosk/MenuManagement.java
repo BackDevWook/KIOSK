@@ -10,6 +10,33 @@ public class MenuManagement {
     private Map<String, Integer> sideNumber = new LinkedHashMap<>();
     private Map<String, Integer> singleNumber = new LinkedHashMap<>();
 
+    // 메뉴 카테고리별 가격 게터
+    public int getBeverPrice(int number) {
+        for (BeverageMenu menu : BeverageMenu.values()) {
+            if (number == menu.ordinal()) {
+                System.out.println("가져간 금액 : " + menu.getPrice());
+                return menu.getPrice();
+            }
+        }
+        return -1;
+    }
+    public int getSinglePrice(int number) {
+        for (SingleMenu menu : SingleMenu.values()) {
+            if (number == menu.ordinal()) {
+                return menu.getPrice();
+            }
+        }
+        return -1;
+    }
+    public int getSidePrice(int number) {
+        for (SideMenu menu : SideMenu.values()) {
+            if (number == menu.ordinal()) {
+                return menu.getPrice();
+            }
+        }
+        return -1;
+    }
+
     // 메뉴 번호 매기기
     public void menuNumbering() {
         // 음료 메뉴 번호 매기기
