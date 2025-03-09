@@ -115,7 +115,7 @@ public class IO {
     public void displayReceipt(int totalPrice, Map<String, Integer> orderList) {
         System.out.println("────────────────────────────────────────────────────────");
         for(String menu : orderList.keySet()) {
-            System.out.println("[" + menu + "] " + orderList.get(menu));
+            System.out.println("[" + menu + "] " + orderList.get(menu) + "ea");
         }
         System.out.println();
         System.out.println("주문 금액 : " + totalPrice + "원");

@@ -14,7 +14,6 @@ public class MenuManagement {
     public int getBeverPrice(int number) {
         for (BeverageMenu menu : BeverageMenu.values()) {
             if (number == menu.ordinal()) {
-                System.out.println("가져간 금액 : " + menu.getPrice());
                 return menu.getPrice();
             }
         }

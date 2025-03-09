@@ -5,7 +5,6 @@ import java.util.Scanner;
 public class KioskRunner {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        MenuManagement m = new MenuManagement();
 
         KioskPage currentPage = KioskPage.StartPage; // 키오스크 초기 화면으로 시작
 
@@ -15,9 +14,6 @@ public class KioskRunner {
             // 페이지 출력
             String input = sc.next().trim();
             currentPage = currentPage.runProcess(input);
-
-
-
 
         }
 
