@@ -1,9 +1,7 @@
 package kiosk;
 
 
-import java.util.Arrays;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public enum KioskPage {
     StartPage { // 키오스크 초기 화면
@@ -116,13 +114,16 @@ public enum KioskPage {
             switch (input) {
                 case "back" : return KioskPage.SingleMenuPage;
                 case "cancel" : return KioskPage.StartPage;
+                case "order" : return KioskPage.PaymentPage_BAKSET;
+                case "mod" : basket.basketModify(input);
+                            return this;
                 default: return this;
             }
         }
     },
     PaymentPage_SINGLE { // 단품 결제 화면
         public void display() {
-            io.displayPayment();
+            io.displayPaymentSINGLE();
         }
         public KioskPage runProcess(String input) {
             switch (input) {
@@ -138,10 +139,18 @@ public enum KioskPage {
     },
     PaymentPage_BAKSET { // 장바구니 결제 화면
         public void display() {
-
+            io.displayPaymentBASKET();
         }
         public KioskPage runProcess(String input) {
-            return null;
+            switch (input) {
+                case "back" : return KioskPage.SingleMenuPage;
+                case "cancel" : return KioskPage.StartPage;
+                case "bill":
+                    io.displayBillPayment();
+                    return KioskPage.StartPage;
+                case "card" : return KioskPage.ReceiptSelectPage_BASKET;
+                default: return this;
+            }
         }
     },
     ReceiptSelectPage_SINGLE { // 단일 메뉴 주문 시 영수증 출력 유무 화면
@@ -174,7 +183,7 @@ public enum KioskPage {
     },
     ReceiptPage_SINGLE { // 단일 메뉴 영수증 화면
         public void display() {
-            io.displayReceipt(price, Map.of(orderMenuName, quantity));
+            io.displayReceiptSINGLE(price, Map.of(orderMenuName, quantity));
         }
         public KioskPage runProcess(String input) {
             switch (input) {
@@ -187,7 +196,7 @@ public enum KioskPage {
     },
     ReceiptPage_BASKET { // 장바구니 영수증 화면
         public void display() {
-
+            io.displayReceiptBASKET(basket.basketTotalPrice(), basket.getBasketList());
         }
         public KioskPage runProcess(String input) {
             switch (input) {

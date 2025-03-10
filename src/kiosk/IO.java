@@ -1,5 +1,6 @@
 package kiosk;
 
+import java.util.List;
 import java.util.Map;
 
 public class IO {
@@ -9,7 +10,7 @@ public class IO {
     public void displayKioskStart() {
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("미슐랭 ★★★              ∇ 심 연 ∇            |괴식 다이닝|");
-        System.out.println(" \n                     [시작하기]  \n");
+        System.out.println(" \n                        [시작하기]  \n");
         System.out.println("롯데 시그니엘 24년 총주방장 경력 \"김하늘\" 쉐프의 소문난 레스토랑!");
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("\"start\"를 입력해 주세요.");
@@ -89,10 +90,24 @@ public class IO {
             System.out.println( i + ".] " + KioskPage.basket.getBasketList().get(i));
         }
         System.out.println("────────────────────────────────────────────────────────");
+        System.out.println("메뉴 편집을 원하시면 \"mod\"를 입력해 주세요.");
+        System.out.println("장바구니의 메뉴를 주문하시려면 \"order\"를 입력해 주세요.");
     }
 
-    // 결제 화면
-    public void displayPayment() {
+    // 결제 화면 - SINGLE
+    public void displayPaymentSINGLE() {
+        System.out.println("────────────────────────────────────────────────────────");
+        System.out.println();
+        System.out.println();
+        System.out.println("               [카드결제]         [현금결제]               ");
+        System.out.println();
+        System.out.println();
+        System.out.println("────────────────────────────────────────────────────────");
+        System.out.println("결제 방식을 선택해 주세요. [카드 : card] , [현금 : bill] 입력");
+    }
+
+    // 결제 화면 - BASKET
+    public void displayPaymentBASKET() {
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println();
         System.out.println();
@@ -116,8 +131,8 @@ public class IO {
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("출력을 원하신다면 \"yes\" 아니라면 \"no\"를 입력해 주세요.");
     }
-    // 영수증 화면
-    public void displayReceipt(int totalPrice, Map<String, Integer> orderList) {
+    // 영수증 화면 - SINGLE
+    public void displayReceiptSINGLE(int totalPrice, Map<String, Integer> orderList) {
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("                        [영수증]                         ");
         for(String menu : orderList.keySet()) {
@@ -129,6 +144,18 @@ public class IO {
         System.out.println("\"check\"를 입력해 주세요.");
     }
 
+    // 영수증 화면 - BASKET
+    public void displayReceiptBASKET(int totalPrice, List<basketForm> list) {
+        System.out.println("────────────────────────────────────────────────────────");
+        System.out.println("                        [영수증]                         ");
+        for(int i = 0; i < list.size(); i++) {
+            System.out.println(i + ".] " + list.get(i) + " " + list.get(i).getQuantity() + "ea " + list.get(i).getPrice() + "원");
+        }
+        System.out.println();
+        System.out.println("주문 금액 : " + totalPrice + "원");
+        System.out.println("────────────────────────────────────────────────────────");
+        System.out.println("\"check\"를 입력해 주세요.");
+    }
 
 
 }
