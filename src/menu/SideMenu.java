@@ -1,4 +1,4 @@
-package kiosk;
+package menu;
 
 public enum SideMenu {
 

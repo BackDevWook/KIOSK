@@ -1,5 +1,9 @@
 package kiosk;
 
+import menu.BeverageMenu;
+import menu.SideMenu;
+import menu.SingleMenu;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 

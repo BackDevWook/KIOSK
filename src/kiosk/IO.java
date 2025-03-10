@@ -1,5 +1,9 @@
 package kiosk;
 
+import menu.BeverageMenu;
+import menu.SideMenu;
+import menu.SingleMenu;
+
 import java.util.List;
 import java.util.Map;
 
@@ -149,7 +153,7 @@ public class IO {
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("                        [영수증]                         ");
         for(int i = 0; i < list.size(); i++) {
-            System.out.println(i + ".] " + list.get(i) + " " + list.get(i).getQuantity() + "ea " + list.get(i).getPrice() + "원");
+            System.out.println(i + ".] " + list.get(i));
         }
         System.out.println();
         System.out.println("주문 금액 : " + totalPrice + "원");
