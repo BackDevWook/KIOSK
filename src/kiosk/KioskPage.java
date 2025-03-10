@@ -1,7 +1,9 @@
 package kiosk;
 
 
+import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public enum KioskPage {
     StartPage { // 키오스크 초기 화면
@@ -36,6 +38,7 @@ public enum KioskPage {
                 case "cancel" : return KioskPage.StartPage;
                 case ">", "single" : return KioskPage.SingleMenuPage;
                 case "side" : return KioskPage.SideMenuPage;
+                case "basket" : return KioskPage.BasketPage;
                 case "0","1","2","3","4" :
                     menuManagement.menuNumbering(); // 각 메뉴 별로 번호 매기기
                     io.yourSelect(menuManagement.findMenu(Integer.valueOf(input), menuManagement.getBeverNumber()), menuManagement.getBeverPrice(Integer.valueOf(input))); // 선택한 주문의 이름과 가격 출력
@@ -57,6 +60,7 @@ public enum KioskPage {
                 case "cancel" : return KioskPage.StartPage;
                 case "side", ">" : return KioskPage.SideMenuPage;
                 case "bever", "<" : return KioskPage.BeverageMenuPage;
+                case "basket" : return KioskPage.BasketPage;
                 case "0","1","2","3","4" :
                     menuManagement.menuNumbering(); // 각 메뉴 별로 번호 매기기
                     io.yourSelect(menuManagement.findMenu(Integer.valueOf(input), menuManagement.getSingleNumber()), menuManagement.getSinglePrice(Integer.valueOf(input))); // 선택한 주문의 이름과 가격 출력
@@ -77,6 +81,7 @@ public enum KioskPage {
                 case "cancel" : return KioskPage.StartPage;
                 case "single", "<" : return KioskPage.SingleMenuPage;
                 case "bever" : return KioskPage.BeverageMenuPage;
+                case "basket" : return KioskPage.BasketPage;
                 case "0","1","2","3","4" :
                     menuManagement.menuNumbering(); // 각 메뉴 별로 번호 매기기
                     io.yourSelect(menuManagement.findMenu(Integer.valueOf(input), menuManagement.getSideNumber()), menuManagement.getSidePrice(Integer.valueOf(input))); // 선택한 주문의 이름과 가격 출력
@@ -97,7 +102,8 @@ public enum KioskPage {
                 case "back" : return KioskPage.SingleMenuPage;
                 case "cancel" : return KioskPage.StartPage;
                 case "order" : return KioskPage.PaymentPage_SINGLE;
-                case "keep" :
+                case "keep" : basket.addBasketList(new basketForm(orderMenuName, quantity, price));
+                            return KioskPage.SingleMenuPage;
                 default: return this;
             }
         }
@@ -204,5 +210,5 @@ public enum KioskPage {
 
     IO io = new IO(); // 출력 클래스
     MenuManagement menuManagement = new MenuManagement(); // 메뉴 관리 메서드
-
+    static MyBasket basket = new MyBasket();
 }

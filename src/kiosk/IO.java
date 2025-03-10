@@ -3,13 +3,14 @@ package kiosk;
 import java.util.Map;
 
 public class IO {
+     // 장바구니 출력을 위한 클래스 호출
 
     // 키오스크 시작 문구
     public void displayKioskStart() {
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("미슐랭 ★★★              ∇ 심 연 ∇            |괴식 다이닝|");
         System.out.println(" \n                     [시작하기]  \n");
-        System.out.println("롯데 시그니엘 23년 총주방장 경력 \"김하늘\" 쉐프의 소문난 레스토랑!");
+        System.out.println("롯데 시그니엘 24년 총주방장 경력 \"김하늘\" 쉐프의 소문난 레스토랑!");
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("\"start\"를 입력해 주세요.");
         System.out.println("\"cancel\" 입력시 초기 화면으로 돌아갈 수 있습니다.");
@@ -84,8 +85,10 @@ public class IO {
     public void displayMyBasket() {
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("                      <장바구니 목록>                     ");
-        //장바구니 리스트 일단 만들자...
-
+        for(int i = 0; i < KioskPage.basket.getBasketList().size(); i++) {
+            System.out.println( i + ".] " + KioskPage.basket.getBasketList().get(i));
+        }
+        System.out.println("────────────────────────────────────────────────────────");
     }
 
     // 결제 화면
