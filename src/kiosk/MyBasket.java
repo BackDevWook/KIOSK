@@ -1,5 +1,7 @@
 package kiosk;
 
+import com.sun.tools.javac.Main;
+
 import java.util.*;
 
 class basketForm {
@@ -16,7 +18,7 @@ class basketForm {
         this.selectMenuName = selectMenuName;
         this.quantity = quantity;
         this.price = price;
-        this.totalPrice = price * quantity;
+        this.totalPrice = price;
     }
 
     // 주문 수량 조절
@@ -33,6 +35,9 @@ class basketForm {
     // 장바구니 메뉴 별 가격 게터
     public int getPrice() {
         return this.price;
+    }
+    public int getTotalPrice() {
+        return this.totalPrice;
     }
 
     // 장바구니 메뉴 별 수량 게터
@@ -78,7 +83,7 @@ public class MyBasket {
     }
 
     // "mod"를 입력받으면 편집기능 실행 ( 구매수량 조절, 삭제 )
-    public void basketModify(String mod) {
+    public void basketModify(String mod) throws InputMismatchException {
         if (mod.equals("mod")) {
             System.out.println("수량 수정을 원하는 메뉴의 번호를 입력해 주세요.");
                     int num = sc.nextInt();
@@ -95,11 +100,10 @@ public class MyBasket {
                         }
                     }
             }
-        }
-
+    }
 
     // 장바구니 메뉴 총 금액 구하기
     public int basketTotalPrice() {
-       return basketList.stream().map(x -> x.getPrice()).reduce(0, (x, y) -> x + y);
+       return basketList.stream().map(x -> x.getTotalPrice()).reduce(0, (x, y) -> x + y);
     }
 }

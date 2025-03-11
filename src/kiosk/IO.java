@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class IO {
-     // 장바구니 출력을 위한 클래스 호출
+    // 장바구니 출력을 위한 클래스 호출
 
     // 키오스크 시작 문구
     public void displayKioskStart() {
@@ -26,6 +26,7 @@ public class IO {
     public void displayKioskExplanation() {
 
     }
+
     // 키오스크 (매장식사, 포장하기) 선택 문구
     public void displaySelectHow() {
         System.out.println("────────────────────────────────────────────────────────");
@@ -39,36 +40,41 @@ public class IO {
     public void displaySingleMenu() {
         System.out.println("────────────────────────────────────────────────────────");
         for (SingleMenu menu : SingleMenu.values()) {
-            System.out.println(menu.ordinal() + ".] " + menu.name() + " - " + menu.getPrice() + "원 - " + menu.getCookTime() + "분" );
+            System.out.println(menu.ordinal() + ".] " + menu.name() + " - " + menu.getPrice() + "원 - " + menu.getCookTime() + "분");
         }
-        System.out.println("────────────────────────────────────────────────────────");
+        System.out.println("────────────────────────────────────────────────────────           [적용 중인 할인코드 : " + KioskPage.getSaleCode() + "]");
         System.out.println("주문하실 음식의 번호를 입력해주세요.");
         System.out.println("장바구니로 가시고 싶다면 basket을 입력해 주세요.");
         System.out.println("\"<\", \">\" , \"bever\", \"side\"로 페이지를 바꿀 수 있습니다.");
+        System.out.println("\"sale\"을 입력하시면 할인 대상자 페이지로 넘어갑니다.");
         System.out.println("────────────────────────────────────────────────────────");
     }
+
     // 음료 메뉴 선택 화면
     public void displayBeverageMenu() {
         System.out.println("────────────────────────────────────────────────────────");
         for (BeverageMenu menu : BeverageMenu.values()) {
-            System.out.println(menu.ordinal() + ".] " + menu.name() + " - " + menu.getPrice() + "원 - " + menu.getCookTime() + "분" );
+            System.out.println(menu.ordinal() + ".] " + menu.name() + " - " + menu.getPrice() + "원 - " + menu.getCookTime() + "분");
         }
-        System.out.println("────────────────────────────────────────────────────────");
+        System.out.println("────────────────────────────────────────────────────────           [적용 중인 할인코드 : " + KioskPage.getSaleCode() + "]");
         System.out.println("주문하실 음식의 번호를 입력해주세요.");
         System.out.println("장바구니로 가시고 싶다면 basket을 입력해 주세요.");
         System.out.println("\"<\", \">\" , \"single\", \"side\"로 페이지를 바꿀 수 있습니다.");
+        System.out.println("\"sale\"을 입력하시면 할인 대상자 페이지로 넘어갑니다.");
         System.out.println("────────────────────────────────────────────────────────");
     }
+
     // 사이드 메뉴 선택 화면
     public void displaySideMenu() {
         System.out.println("────────────────────────────────────────────────────────");
         for (SideMenu menu : SideMenu.values()) {
-            System.out.println(menu.ordinal() + ".] " + menu.name() + " - " + menu.getPrice() + "원 - " + menu.getCookTime() + "분" );
+            System.out.println(menu.ordinal() + ".] " + menu.name() + " - " + menu.getPrice() + "원 - " + menu.getCookTime() + "분");
         }
-        System.out.println("────────────────────────────────────────────────────────");
+        System.out.println("────────────────────────────────────────────────────────           [적용 중인 할인코드 : " + KioskPage.getSaleCode() + "]");
         System.out.println("주문하실 음식의 번호를 입력해주세요.");
         System.out.println("장바구니로 가시고 싶다면 basket을 입력해 주세요.");
         System.out.println("\"<\", \">\" , \"single\", \"bever\"로 페이지를 바꿀 수 있습니다.");
+        System.out.println("\"sale\"을 입력하시면 할인 대상자 페이지로 넘어갑니다.");
         System.out.println("────────────────────────────────────────────────────────");
     }
 
@@ -79,6 +85,7 @@ public class IO {
         System.out.println("장바구니에 담으시려면 \"keep\"을 입력해 주세요.");
         System.out.println("────────────────────────────────────────────────────────");
     }
+
     // 선택한 메뉴가 무엇인지 보여주기
     public void yourSelect(String menuName, int price) {
         System.out.println("────────────────────────────────────────────────────────");
@@ -86,12 +93,13 @@ public class IO {
         System.out.println("금액 : " + price + "원");
         System.out.println("────────────────────────────────────────────────────────");
     }
+
     // 장바구니 목록
     public void displayMyBasket() {
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("                      <장바구니 목록>                     ");
-        for(int i = 0; i < KioskPage.basket.getBasketList().size(); i++) {
-            System.out.println( i + ".] " + KioskPage.basket.getBasketList().get(i));
+        for (int i = 0; i < KioskPage.basket.getBasketList().size(); i++) {
+            System.out.println(i + ".] " + KioskPage.basket.getBasketList().get(i));
         }
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("메뉴 편집을 원하시면 \"mod\"를 입력해 주세요.");
@@ -121,6 +129,7 @@ public class IO {
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("결제 방식을 선택해 주세요. [카드 : card] , [현금 : bill] 입력");
     }
+
     // 현금 결제 선택 시
     public void displayBillPayment() {
         System.out.println("카운터로 가서 다시 주문하세요 ^-^");
@@ -135,31 +144,47 @@ public class IO {
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("출력을 원하신다면 \"yes\" 아니라면 \"no\"를 입력해 주세요.");
     }
+
     // 영수증 화면 - SINGLE
-    public void displayReceiptSINGLE(int totalPrice, Map<String, Integer> orderList) {
+    public void displayReceiptSINGLE(int totalPrice, Map<String, Integer> orderList, int saleCode) {
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("                        [영수증]                         ");
-        for(String menu : orderList.keySet()) {
+        for (String menu : orderList.keySet()) {
             System.out.println("[" + menu + "] " + orderList.get(menu) + "ea");
         }
         System.out.println();
         System.out.println("주문 금액 : " + totalPrice + "원");
+        if (saleCode != 0) {
+            System.out.println("할인된 금액 : " + (totalPrice * (100 - Sale.values()[saleCode].getSaleRatio())) / 100 + "원");
+        }
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("\"check\"를 입력해 주세요.");
     }
 
     // 영수증 화면 - BASKET
-    public void displayReceiptBASKET(int totalPrice, List<basketForm> list) {
+    public void displayReceiptBASKET(int totalPrice, List<basketForm> list, int saleCode) {
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("                        [영수증]                         ");
-        for(int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             System.out.println(i + ".] " + list.get(i));
         }
         System.out.println();
         System.out.println("주문 금액 : " + totalPrice + "원");
+        if (saleCode != 0) {
+            System.out.println("할인된 금액 : " + (totalPrice * (100 - Sale.values()[saleCode].getSaleRatio())) / 100 + "원");
+        }
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("\"check\"를 입력해 주세요.");
     }
 
+    // 세일 화면
+    public void displaySale() {
+        System.out.println("────────────────────────────────────────────────────────");
+        System.out.println("할인 대상에 해당될 경우 선택해 주세요. (기본 : 일반인)");
+        for (int i = 0; i < Sale.values().length; i++) {
+            System.out.println(i + ".] " + Sale.values()[i].name() + " " + Sale.values()[i].getSaleRatio() + "%");
+        }
+        System.out.println("────────────────────────────────────────────────────────");
 
+    }
 }

@@ -1,6 +1,7 @@
 package kiosk;
 
 
+import java.util.InputMismatchException;
 import java.util.Map;
 
 public enum KioskPage {
@@ -37,10 +38,11 @@ public enum KioskPage {
                 case ">", "single" : return KioskPage.SingleMenuPage;
                 case "side" : return KioskPage.SideMenuPage;
                 case "basket" : return KioskPage.BasketPage;
+                case "sale" : return KioskPage.SalePage;
                 case "0","1","2","3","4" :
                     menuManagement.menuNumbering(); // 각 메뉴 별로 번호 매기기
-                    io.yourSelect(menuManagement.findMenu(Integer.valueOf(input), menuManagement.getBeverNumber()), menuManagement.getBeverPrice(Integer.valueOf(input))); // 선택한 주문의 이름과 가격 출력
-                    price = menuManagement.getBeverPrice(Integer.valueOf(input)); // 인스턴스 변수에 선택한 메뉴의 금액 저장
+                    io.yourSelect(menuManagement.findMenu(Integer.valueOf(input), menuManagement.getBeverNumber()), menuManagement.getBeverPrice(Integer.parseInt(input))); // 선택한 주문의 이름과 가격 출력
+                    price = menuManagement.getBeverPrice(Integer.parseInt(input)); // 인스턴스 변수에 선택한 메뉴의 금액 저장
                     orderMenuName = menuManagement.findMenu(Integer.valueOf(input), menuManagement.getBeverNumber()); // 인스턴스 변수에 선택한 메뉴의 이름 저장
                     return KioskPage.CheckOrderPage;
                 default: return this;
@@ -59,10 +61,11 @@ public enum KioskPage {
                 case "side", ">" : return KioskPage.SideMenuPage;
                 case "bever", "<" : return KioskPage.BeverageMenuPage;
                 case "basket" : return KioskPage.BasketPage;
+                case "sale" : return KioskPage.SalePage;
                 case "0","1","2","3","4" :
                     menuManagement.menuNumbering(); // 각 메뉴 별로 번호 매기기
-                    io.yourSelect(menuManagement.findMenu(Integer.valueOf(input), menuManagement.getSingleNumber()), menuManagement.getSinglePrice(Integer.valueOf(input))); // 선택한 주문의 이름과 가격 출력
-                    price = menuManagement.getSinglePrice(Integer.valueOf(input)); // 인스턴스 변수에 선택한 메뉴의 금액 저장
+                    io.yourSelect(menuManagement.findMenu(Integer.valueOf(input), menuManagement.getSingleNumber()), menuManagement.getSinglePrice(Integer.parseInt(input))); // 선택한 주문의 이름과 가격 출력
+                    price = menuManagement.getSinglePrice(Integer.parseInt(input)); // 인스턴스 변수에 선택한 메뉴의 금액 저장
                     orderMenuName = menuManagement.findMenu(Integer.valueOf(input), menuManagement.getSingleNumber()); // 인스턴스 변수에 선택한 메뉴의 이름 저장
                     return KioskPage.CheckOrderPage;
                 default: return this;
@@ -80,10 +83,11 @@ public enum KioskPage {
                 case "single", "<" : return KioskPage.SingleMenuPage;
                 case "bever" : return KioskPage.BeverageMenuPage;
                 case "basket" : return KioskPage.BasketPage;
+                case "sale" : return KioskPage.SalePage;
                 case "0","1","2","3","4" :
                     menuManagement.menuNumbering(); // 각 메뉴 별로 번호 매기기
-                    io.yourSelect(menuManagement.findMenu(Integer.valueOf(input), menuManagement.getSideNumber()), menuManagement.getSidePrice(Integer.valueOf(input))); // 선택한 주문의 이름과 가격 출력
-                    price = menuManagement.getSidePrice(Integer.valueOf(input)); // 인스턴스 변수에 선택한 메뉴의 금액 저장
+                    io.yourSelect(menuManagement.findMenu(Integer.valueOf(input), menuManagement.getSideNumber()), menuManagement.getSidePrice(Integer.parseInt(input))); // 선택한 주문의 이름과 가격 출력
+                    price = menuManagement.getSidePrice(Integer.parseInt(input)); // 인스턴스 변수에 선택한 메뉴의 금액 저장
                     orderMenuName = menuManagement.findMenu(Integer.valueOf(input), menuManagement.getSideNumber()); // 인스턴스 변수에 선택한 메뉴의 이름 저장
                     return KioskPage.CheckOrderPage;
                 default: return this;
@@ -111,13 +115,23 @@ public enum KioskPage {
             io.displayMyBasket();
         }
         public KioskPage runProcess(String input) {
-            switch (input) {
-                case "back" : return KioskPage.SingleMenuPage;
-                case "cancel" : return KioskPage.StartPage;
-                case "order" : return KioskPage.PaymentPage_BAKSET;
-                case "mod" : basket.basketModify(input);
-                            return this;
-                default: return this;
+            try {
+                switch (input) {
+                    case "back":
+                        return KioskPage.SingleMenuPage;
+                    case "cancel":
+                        return KioskPage.StartPage;
+                    case "order":
+                        return KioskPage.PaymentPage_BAKSET;
+                    case "mod":
+                        basket.basketModify(input);
+                        return this;
+                    default:
+                        return this;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("잘못된 입력입니다.");
+                return this;
             }
         }
     },
@@ -162,6 +176,8 @@ public enum KioskPage {
                 case "yes" : return KioskPage.ReceiptPage_SINGLE;
                 case "no" :
                     System.out.println("결제가 완료되었습니다. 감사합니다.");
+                    basket.getBasketList().clear(); // 결제 완료후 장바구니 초기화
+                    saleCode = 0; // 코드도 초기화
                     return KioskPage.StartPage;
                 default: return this;
             }
@@ -176,6 +192,8 @@ public enum KioskPage {
                 case "yes" : return KioskPage.ReceiptPage_BASKET;
                 case "no" :
                     System.out.println("결제가 완료되었습니다. 감사합니다.");
+                    basket.getBasketList().clear(); // 결제 완료후 장바구니 초기화
+                    saleCode = 0; // 코드도 초기화
                     return KioskPage.StartPage;
                 default: return this;
             }
@@ -183,12 +201,14 @@ public enum KioskPage {
     },
     ReceiptPage_SINGLE { // 단일 메뉴 영수증 화면
         public void display() {
-            io.displayReceiptSINGLE(price, Map.of(orderMenuName, quantity));
+            io.displayReceiptSINGLE(price, Map.of(orderMenuName, quantity), saleCode);
         }
         public KioskPage runProcess(String input) {
             switch (input) {
                 case "check" :
                     System.out.println("감사합니다.");
+                    basket.getBasketList().clear(); // 결제 완료후 장바구니 초기화
+                    saleCode = 0; // 코드도 초기화
                     return KioskPage.StartPage;
                 default: return this;
             }
@@ -196,11 +216,29 @@ public enum KioskPage {
     },
     ReceiptPage_BASKET { // 장바구니 영수증 화면
         public void display() {
-            io.displayReceiptBASKET(basket.basketTotalPrice(), basket.getBasketList());
+            io.displayReceiptBASKET(basket.basketTotalPrice(), basket.getBasketList(), saleCode);
         }
         public KioskPage runProcess(String input) {
             switch (input) {
-                case "check" : return KioskPage.StartPage;
+                case "check" :
+                    System.out.println("감사합니다.");
+                    basket.getBasketList().clear(); // 결제 완료후 장바구니 초기화
+                    saleCode = 0; // 코드도 초기화
+                    return KioskPage.StartPage;
+                default: return this;
+            }
+        }
+    },
+    SalePage { // 할인 페이지
+        public void display() {
+            io.displaySale();
+        }
+        public KioskPage runProcess(String input) {
+            switch (input) {
+                case "back" : return KioskPage.SingleMenuPage;
+                case "cancel" : return KioskPage.StartPage;
+                case "1","2","3","4" : saleCode = Sale.values()[Integer.parseInt(input)].getSaleCode();
+                    return KioskPage.SingleMenuPage;
                 default: return this;
             }
         }
@@ -210,6 +248,7 @@ public enum KioskPage {
     private static int price; // 즉시 주문 시 사용할 금액 변수
     private final static int quantity = 1; // 즉시 주문 시 사용할 주문 수량 = 1
     private static String orderMenuName; // 즉시 주문 시 사용할 메뉴명
+    private static int saleCode = 0; // 할인 코드 [초기 설정은 0(일반인)]
 
 
     public abstract void display(); // 출력 메서드
@@ -220,4 +259,8 @@ public enum KioskPage {
     IO io = new IO(); // 출력 클래스
     MenuManagement menuManagement = new MenuManagement(); // 메뉴 관리 메서드
     static MyBasket basket = new MyBasket();
+
+    public static int getSaleCode() { // 출력을 위한 할인코드 게터
+        return saleCode;
+    }
 }
