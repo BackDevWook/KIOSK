@@ -1,5 +1,7 @@
 package kiosk;
 
+import kiosk.menumanagement.Sale;
+import kiosk.menumanagement.SoldOut;
 import menu.BeverageMenu;
 import menu.SideMenu;
 import menu.SingleMenu;
@@ -8,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class IO {
-    // 장바구니 출력을 위한 클래스 호출
+    SoldOut soldOut = new SoldOut();
 
     // 키오스크 시작 문구
     public void displayKioskStart() {
@@ -20,11 +22,6 @@ public class IO {
         System.out.println("\"start\"를 입력해 주세요.");
         System.out.println("\"cancel\" 입력시 초기 화면으로 돌아갈 수 있습니다.");
         System.out.println("\"back\" 입력시 전 화면으로 돌아갈 수 있습니다. (결제 완료 후 불가능)");
-    }
-
-    // 키오스크 기능 설명 문구
-    public void displayKioskExplanation() {
-
     }
 
     // 키오스크 (매장식사, 포장하기) 선택 문구
@@ -40,7 +37,11 @@ public class IO {
     public void displaySingleMenu() {
         System.out.println("────────────────────────────────────────────────────────");
         for (SingleMenu menu : SingleMenu.values()) {
-            System.out.println(menu.ordinal() + ".] " + menu.name() + " - " + menu.getPrice() + "원 - " + menu.getCookTime() + "분");
+            if(soldOut.getIsSoldout().get(menu.name())) {
+                System.out.println(menu.ordinal() + ".] " + menu.name() + " - " + menu.getPrice() + "원 - " + menu.getCookTime() + "분");
+            } else {
+                System.out.println("\u001B[9m" + menu.ordinal() + ".] " + menu.name() + " - " + menu.getPrice() + "원 - " + menu.getCookTime() + "분\u001B[0m" + " - Sold out"); // 품절일시 취소선
+            }
         }
         System.out.println("────────────────────────────────────────────────────────           [적용 중인 할인코드 : " + KioskPage.getSaleCode() + "]");
         System.out.println("주문하실 음식의 번호를 입력해주세요.");
@@ -54,7 +55,11 @@ public class IO {
     public void displayBeverageMenu() {
         System.out.println("────────────────────────────────────────────────────────");
         for (BeverageMenu menu : BeverageMenu.values()) {
-            System.out.println(menu.ordinal() + ".] " + menu.name() + " - " + menu.getPrice() + "원 - " + menu.getCookTime() + "분");
+            if(soldOut.getIsSoldout().get(menu.name())) {
+                System.out.println(menu.ordinal() + ".] " + menu.name() + " - " + menu.getPrice() + "원 - " + menu.getCookTime() + "분");
+            } else {
+                System.out.println("\u001B[9m" + menu.ordinal() + ".] " + menu.name() + " - " + menu.getPrice() + "원 - " + menu.getCookTime() + "분\u001B[0m" + " - Sold out"); // 품절일시 취소선
+            }
         }
         System.out.println("────────────────────────────────────────────────────────           [적용 중인 할인코드 : " + KioskPage.getSaleCode() + "]");
         System.out.println("주문하실 음식의 번호를 입력해주세요.");
@@ -68,7 +73,11 @@ public class IO {
     public void displaySideMenu() {
         System.out.println("────────────────────────────────────────────────────────");
         for (SideMenu menu : SideMenu.values()) {
-            System.out.println(menu.ordinal() + ".] " + menu.name() + " - " + menu.getPrice() + "원 - " + menu.getCookTime() + "분");
+            if(soldOut.getIsSoldout().get(menu.name())) {
+                System.out.println(menu.ordinal() + ".] " + menu.name() + " - " + menu.getPrice() + "원 - " + menu.getCookTime() + "분");
+            } else {
+                System.out.println("\u001B[9m" + menu.ordinal() + ".] " + menu.name() + " - " + menu.getPrice() + "원 - " + menu.getCookTime() + "분\u001B[0m" + " - Sold out"); // 품절일시 취소선
+            }
         }
         System.out.println("────────────────────────────────────────────────────────           [적용 중인 할인코드 : " + KioskPage.getSaleCode() + "]");
         System.out.println("주문하실 음식의 번호를 입력해주세요.");
@@ -186,5 +195,46 @@ public class IO {
         }
         System.out.println("────────────────────────────────────────────────────────");
 
+    }
+
+    // 관리자 기능 화면
+    public void displayManager() {
+        System.out.println("---------------------------------------------------------");
+        System.out.println("                     || 관리자 기능 ||                     ");
+        System.out.println();
+        System.out.println("1.품절 관리");
+        System.out.println("2.전원");
+        System.out.println("3.착한 사람에게만 보인다는 전설의 버튼 ( 누르지 말 것 )");
+        System.out.println("---------------------------------------------------------");
+        System.out.println("수행하실 기능의 번호를 입력해 주세요.");
+    }
+
+    // 관리자 비밀번호 입력 화면
+    public void displayManagerPassword() {
+        System.out.println("---------------------------------------------------------");
+        System.out.println("                  비밀번호를 입력해 주세요.                  ");
+        System.out.println("---------------------------------------------------------");
+    }
+
+    // 품절 기능 화면
+    public void displaySoldOut() {
+        System.out.println("---------------------------------------------------------");
+        for(Map.Entry<String, Boolean> entry : soldOut.getIsSoldout().entrySet()) {
+            System.out.println("|| " + entry.getKey() + " - " + entry.getValue());
+        }
+        System.out.println("---------------------------------------------------------");
+        System.out.println("\"so\"를 입력하시면 편집모드로 돌입합니다.");
+        System.out.println("메뉴의 이름을 입력하시면 토글식으로 on/off (true/false) 변경이 가능합니다.");
+        System.out.println("---------------------------------------------------------");
+    }
+
+    // 키오스크 전원 관리 화면
+    public void displayKioskPower() {
+        System.out.println("---------------------------------------------------------");
+        System.out.println();
+        System.out.println("                 키오스크를 종료 하시겠습니까?"                );
+        System.out.println("                 종료 \"yes\"    취소 \"no\"               ");
+        System.out.println();
+        System.out.println("---------------------------------------------------------");
     }
 }

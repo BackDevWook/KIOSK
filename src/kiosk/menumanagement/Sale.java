@@ -1,4 +1,4 @@
-package kiosk;
+package kiosk.menumanagement;
 
 public enum Sale { // 경우에 따른 할인율을 부여하는 클래스
     일반인(0, 0),

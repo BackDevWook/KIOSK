@@ -1,4 +1,4 @@
-package kiosk;
+package kiosk.menumanagement;
 
 import menu.BeverageMenu;
 import menu.SideMenu;
@@ -7,7 +7,7 @@ import menu.SingleMenu;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class MenuManagement {
+public class MenuHelper { // 메뉴 세팅 도와주는 친구
 
     // 메뉴와 메뉴 번호 값을 매겨줄 컬렉션
     private Map<String, Integer> beverNumber = new LinkedHashMap<>();

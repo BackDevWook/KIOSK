@@ -1,12 +1,8 @@
 package kiosk;
 
-import com.sun.tools.javac.Main;
-
 import java.util.*;
 
 class basketForm {
-
-
 
     private String selectMenuName; // 선택된 메뉴의 이름
     private int quantity; // 주문 수량
@@ -68,18 +64,13 @@ public class MyBasket {
 
     // 장바구니에 메뉴 추가하기 ( 중복 될 경우 quantity +1 )
     public void addBasketList(basketForm form) {
-       for (basketForm basket : basketList) {
+        for (basketForm basket : basketList) {
            if(basket.getSelectMenuName().equals(form.getSelectMenuName())) {
                basket.controlQuantity(basket.getQuantity() + 1);
                return;
            }
        }
         basketList.add(form);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return (this == obj);
     }
 
     // "mod"를 입력받으면 편집기능 실행 ( 구매수량 조절, 삭제 )
