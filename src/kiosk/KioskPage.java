@@ -1,6 +1,8 @@
 package kiosk;
 
 
+import kiosk.basket.BasketForm;
+import kiosk.basket.Basket;
 import kiosk.menumanagement.MenuHelper;
 import kiosk.menumanagement.Sale;
 import kiosk.menumanagement.SoldOut;
@@ -8,7 +10,6 @@ import menu.BeverageMenu;
 import menu.SideMenu;
 import menu.SingleMenu;
 
-import java.util.InputMismatchException;
 import java.util.Map;
 
 public enum KioskPage {
@@ -169,7 +170,7 @@ public enum KioskPage {
                 case "order":
                     return KioskPage.PaymentPage_SINGLE;
                 case "keep":
-                    basket.addBasketList(new basketForm(orderMenuName, quantity, price));
+                    basket.addBasketList(new BasketForm(orderMenuName, quantity, price));
                     return KioskPage.SingleMenuPage;
                 default:
                     return this;
@@ -331,7 +332,7 @@ public enum KioskPage {
                     return KioskPage.SingleMenuPage;
                 case "cancel":
                     return KioskPage.StartPage;
-                case "1", "2", "3", "4":
+                case "0","1","2","3","4":
                     saleCode = Sale.values()[Integer.parseInt(input)].getSaleCode();
                     return KioskPage.SingleMenuPage;
                 default:
@@ -426,7 +427,7 @@ public enum KioskPage {
 
     IO io = new IO(); // 출력 클래스
     MenuHelper menuHelper = new MenuHelper(); // 메뉴 관리 메서드
-    static MyBasket basket = new MyBasket(); // 장바구니 관리
+    static Basket basket = new Basket(); // 장바구니 관리
     SoldOut soldOut = new SoldOut(); // 메뉴 품절 관리
     KioskPower power = new KioskPower(); // 키오스크 전원
 

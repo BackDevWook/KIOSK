@@ -7,9 +7,9 @@ import java.util.Scanner;
 
 public class KioskRunner {
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in); // 스캐너
         KioskPage currentPage = KioskPage.StartPage; // 키오스크 초기 화면으로 시작
-
 
         while(true) { // 키오스크는 항상 실행
 

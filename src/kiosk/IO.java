@@ -1,5 +1,6 @@
 package kiosk;
 
+import kiosk.basket.BasketForm;
 import kiosk.menumanagement.Sale;
 import kiosk.menumanagement.SoldOut;
 import menu.BeverageMenu;
@@ -171,7 +172,7 @@ public class IO {
     }
 
     // 영수증 화면 - BASKET
-    public void displayReceiptBASKET(int totalPrice, List<basketForm> list, int saleCode) {
+    public void displayReceiptBASKET(int totalPrice, List<BasketForm> list, int saleCode) {
         System.out.println("────────────────────────────────────────────────────────");
         System.out.println("                        [영수증]                         ");
         for (int i = 0; i < list.size(); i++) {

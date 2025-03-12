@@ -1,72 +1,25 @@
-package kiosk;
+package kiosk.basket;
 
 import java.util.*;
 
-class basketForm {
-
-    private String selectMenuName; // 선택된 메뉴의 이름
-    private int quantity; // 주문 수량
-    private int price; // 가격 ( 1개 가격 * 수량 )
-    private int totalPrice; // 수량 x 가격
-
-    // 생성자
-    basketForm(String selectMenuName, int quantity, int price) {
-        this.selectMenuName = selectMenuName;
-        this.quantity = quantity;
-        this.price = price;
-        this.totalPrice = price;
-    }
-
-    // 주문 수량 조절
-    public void controlQuantity(int quantity) {
-        this.quantity = quantity;
-        this.totalPrice = price * quantity;
-    }
-
-    @Override
-    public String toString() { // 해시태그 출력 방지
-        return selectMenuName + " " + quantity + "ea " + totalPrice + "원";
-    }
-
-    // 장바구니 메뉴 별 가격 게터
-    public int getPrice() {
-        return this.price;
-    }
-
-    public int getTotalPrice() {
-        return this.totalPrice;
-    }
-
-    // 장바구니 메뉴 별 수량 게터
-    public int getQuantity() {
-        return this.quantity;
-    }
-
-    // 장바구니 메뉴 이름 게터
-    public String getSelectMenuName() {
-        return selectMenuName;
-    }
-
-}
-
-public class MyBasket {
+public class Basket {
     Scanner sc = new Scanner(System.in);
 
-    private List<basketForm> basketList; // 장바구니 담은 메뉴들을 보관할 리스트
+    private List<BasketForm> basketList; // 장바구니 담은 메뉴들을 보관할 리스트
 
     // 생성자
-    MyBasket() {
+    public Basket() {
         this.basketList = new ArrayList<>();
     }
 
     // 장바구니 리스트 출력을 위한 게터
-    public List<basketForm> getBasketList() {
+    public List<BasketForm> getBasketList() {
         return basketList;
     }
 
     // 장바구니에 메뉴 추가하기 ( 중복 될 경우 quantity +1 )
-    public void addBasketList(basketForm form) {
-        for (basketForm basket : basketList) {
+    public void addBasketList(BasketForm form) {
+        for (BasketForm basket : basketList) {
             if (basket.getSelectMenuName().equals(form.getSelectMenuName())) {
                 basket.controlQuantity(basket.getQuantity() + 1);
                 return;
@@ -96,15 +49,18 @@ public class MyBasket {
                     System.out.println("수량을 바꾸시길 원한다면 정수를, 삭제를 원하신다면 'x'를 입력해 주세요.");
                     System.out.println("수량은 메뉴별로 최대 9개까지 가능합니다.");
                     while (true) {
-                        Character num2 = sc.next().trim().charAt(0);
+                        String answer = sc.nextLine().trim(); //
+                        Character c = answer.charAt(0);
                         // 10 이상 입력하면 1로 인식되는 점 수정 요망
-                        if (num2.equals('x')) { // 'x'입력시 리스트에서 삭제
+                        if (answer.length() != 1) {
+                            System.out.println("잘못 입력하셨습니다. 다시 입력해 주세요.");
+                            continue;
+                        } else if (c.equals('x')) { // 'x'입력시 리스트에서 삭제
                             basketList.remove(num);
-                        } else if (Character.isDigit(num2)) { // 범위 내 정수 입력시 수량 및 가격 초기화
-                            basketList.get(num).controlQuantity(num2 - '0');
+                        } else if (Character.isDigit(c)) { // 범위 내 정수 입력시 수량 및 가격 초기화
+                            basketList.get(num).controlQuantity(c - '0');
                         } else { // Character 변수인 num2 에 대해 아스키 코드가 입력되는 것을 경우 방지
                             System.out.println("잘못 입력하셨습니다. 다시 입력해 주세요.");
-                            sc.nextLine();
                             continue;
                         }
                         break; // 코드가 정상 실행이 될 경우 반복문 탈출
