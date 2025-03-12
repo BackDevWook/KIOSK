@@ -183,7 +183,7 @@ public enum KioskPage {
         }
 
         public KioskPage runProcess(String input) {
-            try {
+
                 switch (input) {
                     case "back":
                         return KioskPage.SingleMenuPage;
@@ -197,10 +197,6 @@ public enum KioskPage {
                     default:
                         return this;
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("잘못된 입력입니다.");
-                return this;
-            }
         }
     },
     PaymentPage_SINGLE { // 단품 결제 화면
