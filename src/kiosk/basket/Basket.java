@@ -31,10 +31,10 @@ public class Basket {
     // "mod"를 입력받으면 편집기능 실행 ( 구매수량 조절, 삭제 )
     public void basketModify(String mod) {
         while (true) {
-            if (mod.equals("mod")) {
+            if (mod.equals("mod")) { // mod를 입력 받으면 메서드 기능 수행
                 System.out.println("수량 수정을 원하는 메뉴의 번호를 입력해 주세요.");
-                int num = 0;
-                try {
+                int num = 0; // 따로 입력받을 변수 초기화
+                try { // 다른 타입 입력시 에러 방지
                     num = sc.nextInt();
                     sc.nextLine();
                 } catch (InputMismatchException e) {
@@ -51,8 +51,8 @@ public class Basket {
                     while (true) {
                         String answer = sc.nextLine().trim(); //
                         Character c = answer.charAt(0);
-                        // 10 이상 입력하면 1로 인식되는 점 수정 요망
-                        if (answer.length() != 1) {
+                        // 10 이상 입력하면 1로 인식되는 점 수정 요망 -> 입력 받는 변수를 String 으로 바꿔서 해결
+                        if (answer.length() != 1) { // 2글자 이상 입력시 다시하기
                             System.out.println("잘못 입력하셨습니다. 다시 입력해 주세요.");
                             continue;
                         } else if (c.equals('x')) { // 'x'입력시 리스트에서 삭제

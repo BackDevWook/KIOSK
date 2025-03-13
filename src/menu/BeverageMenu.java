@@ -9,8 +9,8 @@ public enum BeverageMenu {
     하늘추천_민트_초코_프라페(22000, 10),
     백년동안_뚜껑_열린_위스키( 102000, 10);
 
-    private final int price;
-    private final int cookTime;
+    private final int price; // 가격
+    private final int cookTime; // 조리시간
 
     // 생성자
     BeverageMenu(int price, int cookTime) {
@@ -19,7 +19,6 @@ public enum BeverageMenu {
     }
 
     // 게터
-
     public int getCookTime() {
         return cookTime;
     }

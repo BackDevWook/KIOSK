@@ -19,7 +19,7 @@ public enum KioskPage {
             io.displayKioskStart(); // 화면 출력
         }
 
-        public KioskPage runProcess(String input) {
+        public KioskPage runProcess(String input) { // 기능 수행
             switch (input) {
                 case "start":
                     return KioskPage.MealMethodSelectPage;

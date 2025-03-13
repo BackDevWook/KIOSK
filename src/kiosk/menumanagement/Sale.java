@@ -12,8 +12,8 @@ public enum Sale { // 경우에 따른 할인율을 부여하는 클래스
 
     // 생성자
     Sale(int saleRatio , int saleCode) {
-        this.saleRatio = saleRatio;
-        this.saleCode = saleCode;
+        this.saleRatio = saleRatio; // 할인 비율
+        this.saleCode = saleCode; // 고유 할인 코드
     }
 
     // 게터

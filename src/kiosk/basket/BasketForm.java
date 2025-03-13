@@ -9,10 +9,10 @@ public class BasketForm {
 
     // 생성자
     public BasketForm(String selectMenuName, int quantity, int price) {
-        this.selectMenuName = selectMenuName;
-        this.quantity = quantity;
-        this.price = price;
-        this.totalPrice = price;
+        this.selectMenuName = selectMenuName; // 선택한 메뉴 이름
+        this.quantity = quantity; // 양
+        this.price = price; // 1개 가격
+        this.totalPrice = price; // 주문한 수량만큼의 총 가격
     }
 
     // 주문 수량 조절

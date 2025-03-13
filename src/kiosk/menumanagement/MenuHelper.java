@@ -10,9 +10,9 @@ import java.util.Map;
 public class MenuHelper { // 메뉴 세팅 도와주는 친구
 
     // 메뉴와 메뉴 번호 값을 매겨줄 컬렉션
-    private Map<String, Integer> beverNumber = new LinkedHashMap<>();
-    private Map<String, Integer> sideNumber = new LinkedHashMap<>();
-    private Map<String, Integer> singleNumber = new LinkedHashMap<>();
+    private Map<String, Integer> beverNumber = new LinkedHashMap<>(); // 음료
+    private Map<String, Integer> sideNumber = new LinkedHashMap<>(); // 사이드
+    private Map<String, Integer> singleNumber = new LinkedHashMap<>(); // 단품
 
     // 메뉴 카테고리별 가격 게터
     public int getBeverPrice(int number) {
