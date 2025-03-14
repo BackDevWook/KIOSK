@@ -332,7 +332,7 @@ public enum KioskPage {
                     return KioskPage.SingleMenuPage;
                 case "cancel":
                     return KioskPage.StartPage;
-                case "0","1","2","3","4":
+                case "0","1","2","3","4","5":
                     saleCode = Sale.values()[Integer.parseInt(input)].getSaleCode();
                     return KioskPage.SingleMenuPage;
                 default:

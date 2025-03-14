@@ -178,7 +178,7 @@ public class IO {
         System.out.println();
         System.out.println(yellow + "주문 금액 : " + totalPrice + "원" + reset);
         if (saleCode != 0) {
-            System.out.println(yellow + "할인된 금액 : " + (totalPrice * (100 - Sale.values()[saleCode].getSaleRatio())) / 100 + "원" + reset);
+            System.out.println(yellow + "할인 적용된 금액 : " + (totalPrice * (100 - Sale.values()[saleCode].getSaleRatio())) / 100 + "원" + reset);
         }
         System.out.println(cyan + "────────────────────────────────────────────────────────" + reset);
         System.out.println(green + "\"check\"" + reset + "를 입력해 주세요.");
@@ -194,7 +194,7 @@ public class IO {
         System.out.println();
         System.out.println(yellow + "주문 금액 : " + totalPrice + "원" + reset);
         if (saleCode != 0) {
-            System.out.println(yellow + "할인된 금액 : " + (totalPrice * (100 - Sale.values()[saleCode].getSaleRatio())) / 100 + "원" + reset);
+            System.out.println(yellow + "할인 적용된 금액 : " + (totalPrice * (100 - Sale.values()[saleCode].getSaleRatio())) / 100 + "원" + reset);
         }
         System.out.println(cyan + "────────────────────────────────────────────────────────" + reset);
         System.out.println(green + "\"check\"" + reset + "를 입력해 주세요.");
