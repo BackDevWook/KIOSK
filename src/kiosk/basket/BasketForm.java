@@ -2,9 +2,9 @@ package kiosk.basket;
 
 public class BasketForm {
 
-    private String selectMenuName; // 선택된 메뉴의 이름
+    private final String selectMenuName; // 선택된 메뉴의 이름
     private int quantity; // 주문 수량
-    private int price; // 가격 ( 1개 가격 * 수량 )
+    private final int price; // 가격 ( 1개 가격 * 수량 )
     private int totalPrice; // 수량 x 가격
 
     // 생성자
